@@ -1,0 +1,603 @@
+Company name: Comunicacion Celular S.A. Comcel S.A. Claro
+SMF-SBOX
+
+customer id: 0001121615
+process id : 0046728487 
+
+CUSTOMER_NAME : Comunicacion Celular S.A.
+
+CUSTOMER_ID : 0001121615
+
+CUSTOMER_ERP_ID: 0000271041
+
+USER_FIRSTNAME: Omar
+
+USER_LASTNAME: Sanchez
+
+USER_ID: S0023525444
+
+CUSTOMER_EMAIL_URI: omar.sanchez@claro.com.co
+
+TENANT_ID : 000000000741988440
+
+BUSINESS_TENANT_TYPE: ZH526
+
+DATACENTER_DESCRIPTION  : USA: Ashburn, VA
+
+service req no : 0280431280
+
+Usercount : 800
+
+CC0000000000016443
+
+VB-ORDER/Qoute_ID: 61776420
+
+162.213.82.38
+
+Moniker: 1447
+SCTASK0106699
+SCTASK0106700
+SCTASK0106702
+
+SCTASK0106730----CALD-RS password reset
+
+=================================raif tickets=================
+External DNS -- SCTASK0108538
+Internal DNS -- SCTASK0108539
+===============================================================
+app server: smf-app-comm-sbox-1019
+hana-server: smf-hana-comm-sbx-1b39
+
+	TCMP_LICENSE_KEY: "{aes256-gcm96}4JOAj9s2cgfzEaJzplLYVcu6w4fsZtoyhYEprdBPXQ=="
+	comm_sap_customer_id: "0001121615"
+    tenant_sap_id: "000000000741988440"
+    portaladmin_email: "omar.sanchez@claro.com.co"
+    user_firstname: "Omar"
+    user_lastname: "Sanchez"
+    WKFL_SOFTWARE_VERSION : "Commission 2010"
+    WKFL_LAUNCH_URL : "https://sandbox.webcomserver.com/wpm/userHome.do"
+    WKFL_INT_CONTEXT_ROOT : "https://sandbox.webcomserver.com/wpm/"
+    wkfl_domain : "1447"
+    wkfl_startUrl : "userHome.do"
+    wkfl_logoutUrl : "userLogoff.do"
+    wkfl_version : "1.0"
+    wkfl_build : ""
+    wkfl_service_url : "https://sandbox.webcomserver.com/wpm/api/"
+    wkfl_service_user : "1447Admin"
+    wkfl_service_password : "C95U1i4m9oOEi371eUM3"
+    wkfl_workflow_TerritoryQuota_name : "Accept Top Dowm"
+    wkfl_workflow_TerritoryQuota_id : "accept_td"
+    wkfl_user_sync: "true"
+
+(((((((((((((((((( customer name: Sands Partners Sp. z o.o.
+ moniker : 1264
+ workflow admin name : "1264Admin"
+ url: https://us-wf-sls.callidusondemand.com/wpm/  )))))))))))))))))))))))))))))
+
+Add tenant playbook:
+
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_sbox/inventory /apps/ansible/ansible-ansible-commissions/addTenant_app_hana.yml --extra-vars "tenantid=1447 hana_app_server=smf-app-comm-sbox-1019" --tags='addnameduser,set_tenant_facts,edp,tenant_cpor_sso_outbound,hana_tenant_db_settings,run_installed_product,jwt_key_copy,jwt_key_upload'
+
+http://smf-jenkins-001:8080/job/sravani_playbooks/115/console
+
+openam: completed
+opendj_password:Q5dru7NQNt
+restapi_oauth_service_client_secret:OIEJ93rpns
+bo_cms_admin_pass:MBNC16jkzg
+
+/apps/openam/ssoadmin/createTenantInOpenAM.sh -r SMF1447SBOX -d o=SMF1447SBOX,dc=calliduscloud,dc=com -s smf-vip-uat -p Q5dru7NQNt -a COMM -g OIEJ93rpns
+
+
+SDI-Enable:
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_sbox/inventory /apps/ansible/ansible-ansible-commissions/enableSDI_hana.yml --extra-vars "tenant_key=SMF1447SBOX hana_db_server=smf-hana-comm-sbx-1b39 dpConnPass=SDWQ65njio dpAgentPass=CBVF45zxsd"
+http://smf-jenkins-001:8080/job/sravani_playbooks/116/console
+----------------------------------
+web_ide:
+webide_ps_SMF1447SBOX
+password : In1t14lPss
+
+
+
+SCTASK0106974
+SCTASK0107084
+if we got any error while login raise a db ticket: SCTASK0103262
+---------------------------------
+=========================Uptrends==============
+COMM-1447-SMFSBOX1019-SBOX - Comunicacion Celular S.A. Comcel S.A.
+https://1447.callidusondemand.com/SalesPortal/#!/
+Sales Performance Home
+
+=========================================
+
+
+Goanywhere:---completed
+
+http://smf-jenkins-001:8080/job/Goanywhere_Prov_Decomm_Job/372/console
+
+
+Validations:
+CMC PORTAL VALIDATIONS--Done
+HEALTH check and GMAP check--done
+
+CUSTOMER_NAME : Comunicacion Celular S.A. Comcel S.A.
+DC: smf
+Existing_IP: 162.213.82.38
+tenant : 1447
+app server: smf-app-comm-sbox-1019
+hana-server: smf-hana-comm-sbx-1b39
+Tenant_Key: smf1447sbox
+
+cd /apps/Callidus/tomcat/bin
+./stopTenant.sh 1526
+    ./startTenant.sh 1526
+=========================================================SCA=================================================================
+1.prechecks job: we need to validate the IPs:
+http://smf-jenkins-001:8080/view/Sales%20Cloud%20Analytics(SCA)/job/COMM-TTQT-SKU-PROVISIONING/job/PRE-CHECKS_JOB_FOR_SCA_PROVISIONING/532/console
+2.SCA vars generation:
+http://smf-jenkins-001:8080/view/Sales%20Cloud%20Analytics(SCA)/job/COMM-TTQT-SKU-PROVISIONING/job/COMM_TTQT_SCA_VARSFILE_GENERATION/239/console
+cd /apps/ansible/ansible-sca-scsso/sca-ansible/vars
+ls -lrt
+
+cat 1447_SBOX.yml | egrep '^cald_tbai_release:|^cald_tbai_build_number:|^sac_tenant_erpnumber:|^tenant_default_admin:|^sac_oem_tenant_id:|^ias_tenant_customerId:|^ias_tenant_externalOrderId:|^ips_tenant_customerId:|^ips_tenant_externalOrderId:'
+
+3.RUN the below playbook in putty--ias
+
+ansible-playbook -vv sac_tenant_onboard.yml --extra-vars "customer=1447 env=SBOX" --skip-tags='comm-idp,wkfl-idp,pmpr-idp,comm-ss,ias-ts'
+
+
+    - iasTenant:
+        DC: US4
+        host: https://ajjkezh63.accounts.ondemand.com
+        isNew: true
+        tenant: ajjkezh63
+      id: iam-87ea79bd-94df-4989-8f6d-456b93f69b1d
+      isAdditional: false
+      isDefault: false
+      region: US4
+      tenantType: test
+    id: 1629280265333
+    isAdditional: false
+    isDefault: false
+    isInternalCost: true
+    isNew: true
+    logonRequests: 3000
+    region: US1
+    technicalUsers: CN=IAMUSPRODTechUser (P000001),L=ai8bxpvru.accounts.ondemand.com,OU=37d98dec-719a-4137-9ed7-b22ab59598b1,OU=SAP Cloud Platform Clients,O=SAP SE,C=DE
+    tenantOrAccount: ajjkezh63
+    tenantOrAccountId: iam-87ea79bd-94df-4989-8f6d-456b93f69b1d
+    tenantType: test
+    type: IAS
+IAS URL: https://ajjkezh63.accounts.ondemand.com/admin
+
+password: Callidus@123   Callidus@123
+
+
+TASK [create_t_user : Print T User details updated in config db] *******************************************************************************************************
+task path: /apps/ansible/ansible-sca-scsso/scsso-idp-ansible/roles/create_t_user/tasks/main.yml:147
+changed: [localhost] =>
+  msg:
+  - T-User details are updated
+  - 'UserID: 1293a1e8-2635-4c0f-89af-af3b9dff8546'
+META: ran handlers
+META: ran handlers
+
+
+iamTenants:
+    - id: iam-87ea79bd-94df-4989-8f6d-456b93f69b1d
+      ipsTenant:
+        DC: US4
+        account: x59090c73
+        host: https://ips-x59090c73.dispatcher.us4.hana.ondemand.com/?hc_reset#
+        isNew: true
+        onConvergedCloud: false
+      isAdditional: false
+      isDefault: false
+      region: US4
+      tenantType: test
+    id: 1629281741069
+    isAdditional: false
+    isDefault: false
+    isInternalCost: true
+    isNew: true
+    managedIdentities: 3000
+    region: US1
+    technicalUsers: P000000
+    tenantOrAccount: x59090c73
+    tenantOrAccountId: iam-87ea79bd-94df-4989-8f6d-456b93f69b1d
+    tenantType: test
+    type: IPS
+
+
+TASK [create_sac_tenant : Print info about newly created SAC tenant] ***************************************************************************************************
+task path: /apps/ansible/ansible-sca-scsso/sca-ansible/roles/create_sac_tenant/tasks/main.yml:84
+changed: [localhost] =>
+  msg:
+  - SAC Tenant is successfully created
+  - 'SAC Tenant UUID: eb72aa53-2ebc-4d13-b4ce-881cbffe888a'
+  - 'SAC Tenant URL: https://obzmdwjqi7gkpxntw4pseuz.us10.sapanalytics.cloud'
+
+IAS URL: https://ajjkezh63.accounts.ondemand.com/admin 
+open your mail box , and reset the password to Callidus@123
+for 1st pause -- go to ias portal ->administrators>IAM technical user->enable all the permissions
+==================================User swap==========================================================
+for userswap open ias and sac urls:
+for sac login : sapscaadmin@sap.com  password: NSinor4E(for AWS template)
+
+SAC: https://obzmdwjqi7gkpxntw4pseuz.us10.sapanalytics.cloud
+IPS URL: https://ips-x59090c73.dispatcher.us4.hana.ondemand.com/?hc_reset#
+sapscaadmin@sap.com
+NSinor4E
+
+after login to SAC-go to Security->users(create a new user with our details ,details taken from ias url->
+User Management here open the user with your name n take the details for new user creation in SAC,take the anyrole for new user)
+after user creation open SAC url in other browser:
+here click on new user(with our name)->make this new user as system_owner and delete the salescolud user, and again add the new user in SAC with P00001(take the details from IAS portal)->open second browser make this new user(p00001) as system_owner and delete our user.
+continue the playbook by givivng enter there is no break.
+
+==============================================IDP integration=============================================
+pre-checks:
+login to App server:
+[callidus@smf-app-comm-sbox-1019 ~]$cd /apps/share/config/1447/fedlet/
+ls -lrt (if already idp is there we can see idp.xml and someother files)
+2nd way to check : open Salesportal go to global settings->here we can see idp details if it exists , if not run the below jenkins job
+http://smf-jenkins-001:8080/view/Sales%20Cloud%20Analytics(SCA)/job/COMM-TTQT-SKU-PROVISIONING/job/COMM_INTEGRATION_WITH_IDP/44/console
+
+===========================================Post validations===============================================
+sapscaadmin@sap.com
+SCACLO301@udSCACLO302@ud
+sapscaadmin@sap.com
+SCACLO302@ud
+SCACLO303@ud
+
+Step 6: Dataiku Portal Checks
+SCAI optimizer project checks: 
+http://smf-auto-dataiku-sbox-001:12000/project-list/  -----username n password : admin
+TBAI:  https://1447.calliduscloud.com/thunderbridge_ai/
+Dataiku : if it is not properly done run the below playbook
+
+ansible-playbook -vv sac_tenant_onboard.yml --extra-vars "customer=1447 env=SBOX" --tags='set_vars,dataikuOnboard'
+
+https://calliduscloud.atlassian.net/wiki/spaces/CO/pages/814908241/SCA+Troubleshooting+articles   (for deleting the dataiku files for troubleshoot,delete and run the dataiku playbook)
+
+
+for checking the json files : cd /apps/tmp/1447-SBOX
+
+=========================================CMDB=================================================================
+http://smf-jenkins-001:8080/view/CMDB/job/COMM_CMDB_UPDATE/1050/parameters/
+
+
+IAS_USER_PASSWORD: DGEVHB78jrebfdf
+
+IPS issue ticket : https://support.wdf.sap.corp/sap/support/message/2180356102
+
+
+
+<tr>
+                        <td width="600" valign="top" align="center" style="padding-top:10px ;">
+                            <table width="468" cellspacing="0" cellpadding="0" >
+                                <tr>
+                                    <td>
+                                        <p class="sap-text-format" style="margin-bottom:15px;">
+                                            <strong>Note: Due to some technical reasons, Identity Authentication IAS, Identity Authentication IPS ,Sales Cloud Analytics, Analytics Intelligence and Identity Provider will be shared soon post integration with commissions  </strong>
+                                        </p>
+                                    <td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+			
+workflow updated : http://smf-jenkins-001:8080/view/CMDB/job/CMDB/2351/console
+
+
+free style pass--- copy in encrypted html parameter
+free style access template-- copy in stack xml parameter ----
+
+https://github.tools.sap/login?return_to=https%3A%2F%2Fpages.github.tools.sap%2FC5302991%2Fhtml-generator%2F   - generating the html pages
+
+
+http://smf-jenkins-001:8080/job/rangaraju_sac_cmdb/140/console --SCA CMDB UPDATE
+
+
+Update the SLCA param in vars file and run playbook
+
+https://obzmdwjqi7gkpxntw4pseuz.us10.sapanalytics.cloud
+
+    SLCA_SOFTWARE_VERSION: "Fall 2020"
+    SLCA_LAUNCH_URL: "https://obzmdwjqi7gkpxntw4pseuz.us10.sapanalytics.cloud" # dont end the url with slash /
+    SLCA_INT_CONTEXT_ROOT: "https://obzmdwjqi7gkpxntw4pseuz.us10.sapanalytics.cloud" # dont end the url with slash /
+
+app server: smf-app-comm-sbox-1019
+hana-server: smf-hana-comm-sbx-1b39
+
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_sbox/inventory /apps/ansible/ansible-ansible-commissions_nonprod/addTenant_app_hana.yml --extra-vars "tenantid=1447 hana_app_server=smf-app-comm-sbox-1019" --tags "tenant_cpor_sso_outbound,hana_tenant_db_settings,run_installed_product"
+
+http://smf-jenkins-001:8080/job/sravani_playbooks/125/console
+
+if you dont get noreply mail use this jenkins job:
+http://smf-jenkins-001:8080/view/Sales%20Cloud%20Analytics(SCA)/job/ADHOC_PROVISIONING_RELATED_JOBS/job/IAS_ADMIN_USER_CREATION_JOB/   
+
+
+https://sap.sharepoint.com/:x:/r/sites/126483/Shared%20Documents/Provisioning/provisioning_status_sheets/commissions%20tenants%20details%20from%201st%20may.xlsx?d=wa7bbdcf3215c4d23a63bbaa1c5dfe4de&csf=1&web=1&e=HxmlFC
+
+
+for single tenant:
+
+
+
+ansible-playbook -vv sac_tenant_onboard.yml --extra-vars "customer=1625 env=PROD" --skip-tags='comm-idp,wkfl-idp,pmpr-idp,comm-ss,ias-ts'
+
+
+
+for multi tenant:
+
+
+
+ansible-playbook -vv sac_tenant_onboard.yml --extra-vars "customer=1625 env=PROD" --tags='set_vars,ced,ias,ips,sac,sac-tft,sac-cns,sac-oauth,sac-acn,sac-idp,sac-openid,mds-x509,mds,ias-ss,sac-ts,sac-lconns' --skip-tags='create_sac_config_db_tenant'
+
+
+https://icp.wdf.sap.corp/sap(bD1lbiZjPTAwMSZkPW1pbg==)/bc/bsp/sap/crm_ui_start/default.htm?crm-object-type=BT116_SRVO&crm-object-action=B&crm-object-value=0894EF2237491EDB92F88E753B819A29&crm-object-keyname=GUID
+
+https://calliduscloud.atlassian.net/wiki/spaces/~932035763/pages/2206793812/MULTI+TENANCY+IN+SCA+PROVISIONING -for existing customer please go 
+
+
+SCTASK0118037 -CALS-AD crentials
+SCTASK0088999 -CALD-RS
+RITM0510374 - actecksoft
+
+============================================================================================
+
+Enable/disable smoke test flag:
+
+https://calliduscloud.atlassian.net/wiki/spaces/CO/pages/2314569216/How+to+enable+disable+smoke+test+flag+for+commissions+from+db
+
+select * from csi_preference  where preferencekey=1582 and domaintype=1 and PRINCIPALSEQ=0 and PRINCIPALTYPE=1
+=============================================================================================
+COnfig DB validations:
+
+hanastudio:
+
+sca hanadb validations:
+
+select * from "SCCONFIG"."SC_TENANT";
+select * from "SCCONFIG"."SC_ENVIRONMENT";
+select * from "SCCONFIG"."SC_ENV_SCAI_CONFIG";
+select * from "SCCONFIG"."SC_ENV_SCAN_CONFIG";
+
+select * from "SCCONFIG"."SC_TENANT" where tenant_name='0192';
+select * from "SCCONFIG"."SC_ENVIRONMENT" where environment_name='0192';
+select * from "SCCONFIG"."SC_ENV_SCAI_CONFIG" where db_user_name='0192';
+select * from "SCCONFIG"."SC_ENV_SCAN_CONFIG" where db_user_name='0192';
+
+
+
+select * from "SCCONFIG"."SC_TENANT" where TENANT_NAME='MONIKER';
+select * from "SCCONFIG"."SC_ENVIRONMENT" where ENVIRONMENT_NAME='MONIKER';
+select * from "SCCONFIG"."SC_ENV_SCAI_CONFIG" where DB_USER_NAME='MONIKER';
+select * from "SCCONFIG"."SC_ENV_SCAN_CONFIG" where DB_USER_NAME='MONIKER';
+select * from "SCCONFIG"."IAM_TENANT" where CUSTOMER_ID='provide customer ID from the vars file';
+select * from "SCCONFIG"."IAM_APPLICATION" where PID='provide the ias_tenant_sso_config_db_id from the vars';
+=============================================================
+comm add names user validation
+
+select * from cs_user;
+select * from csi_user;
+select * from csi_preference;
+select * from csi_principalrole;
+select * from csi_role;
+select * from cs_installedproduct;
+
+https://webide.1b84.calliduscloud.com
+
+profile management:
+https://accounts.sap.com/ui/protected/profilemanagement
+
+Embedded:
+
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_sbox/inventory /apps/ansible/ansible-ansible-commissions/addTenant_app_hana.yml --extra-vars "tenantid=1463 hana_app_server=smf-app-comm-sbox-1038" --tags='tenant_cpor_sso_outbound,hana_tenant_db_settings,run_installed_product'
+
+For TTQT enable on COMM:
+https://calliduscloud.atlassian.net/wiki/spaces/~932035763/pages/1675591697/Commission+pre-provisioning+process
+ansible-playbook -i /apps/environments/commissions/xxxx_commissions_pod_xxx/inventory /apps/ansible/ansible-ansible-commissions/addTenant_app_hana.yml --extra-vars "tenantid=xxxx hana_app_server=xxx-app-comm-xxx-xxxx" --tags="hana_tenant_db_settings,run_installed_product"
+
+
+SAPADM PASS:
+callidus@smf-tools-012:~$ ./getsapadm.sh fra-hana-comm-sbx-1b85
+FRA,SBOX,fra-hana-comm-sbx-1b85,IyBYaOdrl8iT,n/a,
+
+Embedded checking from db
+Select * FROM CSI_TENANTPARAMS
+WHERE name NOT LIKE '%samlConf%' and tenantid='1686';
+
+------
+Steps to add the SCA tenant entry in CPQ F5 vars:
+1. Login to smf-tools-009
+2. Move to ur respective DC ie. /apps/environments/f5/iad/group_vars
+3. Vi the f5-cpq and check the tenant moniker existence.
+4. If Moniker not found then update the New tenant entry(ensure the tenant moniker mapped to SCA external/internal DNS) else check with Madhuri/Vamsi.
+5. After updating the tenant entry in the cpq-f5 vars run the below jenkins job to reflect the change in the F5 portal.
+http://smf-jenkins-001:8080/view/Sales%20Cloud%20Analytics(SCA)/job/ADHOC_PROVISIONING_RELATED_JOBS/job/CPQ_F5_JENKINS_JOB/configure
+--
+
+
+------------------------------
+checking the IPS in f5(whether already used by some other customer or not)
+
+login to smf-tools-009
+go to /apps/environments/f5/smf/group_vars
+cat f5-commissions
+
+
+-------------------------------
+https://smf-f5-lb-mgmt.smf.uc.int/
+https://iad-f5-lb-mgmt.east.smf.uc.int/
+https://fra-f5-lb-mgmt.fra.uc.int/
+https://sin-f5-lb-mgmt.sin.uc.int/
+https://kul-f5-lb-mgmt.kul.uc.int/
+ops_team / Password@987123
+F5 - Readonly Credentials
+
+To get tables:
+
+username&passwd:
+opstools
+
+localhost:
+smf-tools-006
+
+SID
+cctools
+
+environment hierarcy for oracle :
+
+prd
+dev
+uat
+tst
+sit
+pat
+opt
+fit
+
+https://icp.wdf.sap.corp/sap(bD1lbiZjPTAwMSZkPW1pbg==)/bc/bsp/sap/crm_ui_start/default.htm
+
+
+-------------------------------------
+
+For additional tenants we have add below parameters for cpq
+
+t_user_id: 1a86ebad-b226-4028-b0e3-e2c14ad30a1b
+ias_tenant_user_groups_creation: SUCCESSFUL
+tenant_id: 195
+tbai_app_t_user: 70372b79-4a44-4dc1-b156-f1b2bbb3cba9
+sac_set_tbai_sp_idp: SUCCESSFUL
+
+-----------------------------IAM tenant url-----------------
+
+https://iamtenants.accounts.cloud.sap/
+
+
+---------------------------------
+
+If we get a 2 SAP_T users in IAS we have to select the 2nd user and remove the configuration access so that it will remove the 2nd t-user
+
+y bcz we are using that IAS for env if we trigger with the ZH526 it will create a 2nd t_user so we have to remove the t-user in IAS and we have to add the t-user id in vars and in ips IAS_SOURCE_SYSTEM and have to change the t-user password.
+
+------------------------------------
+
+if you don't find the var file ,go to backup folder and check
+
+callidus@smf-tools-012:/apps/ansible/ansible-sca-scsso-acn/sca-ansible/vars_backup$ pwd
+/apps/ansible/ansible-sca-scsso-acn/sca-ansible/vars_backup
+
+-------------------------------------active/inactive
+select * from cmdb_customer_tenant_status where CALD_TENANT_ID='cc';
+delete from cmdb_customer_tenant_status where CALD_TENANT_ID='cc';
+
+
+delete from sap_eacomm_customer where customer_id='5545993';
+select * from sap_eacomm_customer where customer_id='5545993';
+
+INSERT INTO sap_eacomm_customer (pod_id, moniker_id,customer_name,provisioningstatus,tenant_id,environment,tbai_app_t_user,ias_admin_user_id,t_user_id,customer_id,configdb_tenant_id,dc_id)  
+VALUES ('IADSBOX','1553','Olympus Corporation of the Americas','assigned','741707310','ZH526','f236b042-26e5-4b71-b6ed-f1b3a821eefc','P000001','db401e68-72a3-484c-b194-debc2908cbdd','5545993','84','AB4');
+
+
+PROVISIONINGSTATUS
+
+
+t_user_id: db401e68-72a3-484c-b194-debc2908cbdd
+ias_admin_user_id: P000001
+tbai_app_t_user: f236b042-26e5-4b71-b6ed-f1b3a821eefc
+tenant_id: 84
+cust_env_dir_creation: SUCCESSFUL
+
+
+t_user_id: "db401e68-72a3-484c-b194-debc2908cbdd"
+ias_tenant_user_groups_creation: "SUCCESSFUL"
+ias_admin_user_id: "P000001"
+tenant_id: "84"
+tbai_app_t_user: "f236b042-26e5-4b71-b6ed-f1b3a821eefc"
+sac_set_tbai_sp_idp: "SUCCESSFUL"
+
+
+SELECT DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where table_schema = 'sap_eacomm_customer' and table_name = 'yourTableName'
+
+
+select * from "scconfig"."sc_tenant";
+
+-----if u get too many request error--
+curl --location --request PATCH 'https://api.sapanalytics.cloud/oem/tenants/e63f391a-c075-4e2d-89d5-60236e677ce5' --header 'APIKey: AUWSEdSAPzn9hAHx5fEfc55tT9pOTrre' --header 'Content-Type: application/json' --data '{"inconsistent": false}'
+
+once the inconsistecny remove it gives log id to check :
+
+command to check the log id
+
+curl --location --request GET 'https://api.sapanalytics.cloud/oem/logs/1282460' --header 'APIKey: AUWSEdSAPzn9hAHx5fEfc55tT9pOTrre' --header 'Content-Type: application/json' --data {} | jq
+
+
+cat G0EA_PROD.yml | egrep 'sac_tenant_id:|sac_tenant_creation_api_key:|sac_tenant_erpnumber|sac_oem_tenant_id'
+-----------------------
+cmdb table- cmdb_customer_tenant
+
+check tcmp key in db:
+
+select * from cs_installedproduct where PRODUCTID = 'TCMP' and TENANTID = 'AIGI';
+
+CLM SBOX credentials:
+Sandbox :
+Login to https://sandbox.callidusclm.com/#/dashboard
+UserName (admin@provisioning.com)
+Password: Password@123
+
+For Production:-
+Login to https://contract.callidusclm.com/#/login
+UserName (admin@provisioning.com)
+Password: Password@789  Password.123!
+admin@provisioning.com on CLM production https://contract.callidusclm.com/#/login
+
+Password is: Password.123!
+TBAI:
+
+export KUBECONFIG=/apps/SVC-kubeconfig/svc-rmteam-smf-user-nonprod-003-kubeconfig
+
+1) kubectl get vs 0728-scai-sbox -n scai -o yaml > 0074-scai-sbox
+   kubectl get vs 7832-dss-scai -n scai -o yaml > 7838-dss-scai
+2) sed -i 's/0728/0074/g' 0074-scai-sbox
+    sed -i 's/7832/7838/g' 7838-dss-scai
+3) kubectl apply -f 0074-scai-sbox
+    kubectl apply -f 7838-dss-scai
+
+
+1) kubectl get vs 0018-scai-infs -n scai -o yaml > <NEW TENANT>-scai-infs
+2) sed -i 's/<ref TENANT>/<new TENANT>/g' <NEW TENANT>-scai-infs
+3) kubectl apply -f <NEW TENANT>-scai-infs
+
+
+----GAD7a!fL3SIBKO#F
+
+smf-ans-tools-prd-07
+
+/apps/environments/embeddedAnalytics/tenant_vars/vars/
+
+---to reset the ias passwd from code---
+Callidus@135
+
+/apps/scripts/Naresh/custom_user
+
+vi user_reset.sh
+
+
+
+grep -iR 'aws: false' | grep -v backup
+
+
+=============================IDP integration=============
+If we don't find the sp.xml file in commissions then we have to upload the metadata file from IAS
+
+IAS->Applications &resuorces -> tenant settings -> download metadata 
+
+select new sso -> upload it in idp.xml place and fill all the required details , take from the existing any commisisons tenant
+save it , will get the sp.xml file 
+then follow the idp manual process
+
+============================================
+ansible-vault encrypt_string '<password>' --name 'parameter of the password'

@@ -1,0 +1,315 @@
+Sands Partner Sp. z o.o.
+SMFHANASLS
+App server: smf-app-comm-sls-1018
+RPT Server: smf-rpt-comm-sls-1018 
+hana-server: smf-hana-comm-sls-1b72
+
+Process Id: 44862545
+
+CUSTOMER_NAME : Sands Partners Sp. z o.o.
+
+CUSTOMER_ID : 0050120032
+
+CUSTOMER_ERP_ID: 0001930445
+
+USER_FIRSTNAME: Bartosz
+
+USER_LASTNAME: Strozek
+
+USER_ID: S0021932147
+
+CUSTOMER_EMAIL_URI: bart.strozek@sandspartners.com
+
+TENANT_ID : 000000000741962987
+
+BUSINESS_TENANT_TYPE:
+
+DATACENTER_DESCRIPTION  : USA: Sacramento, CA
+
+service req no : 0280418369
+
+Moniker: 1264
+-------------------------------------------------------------------------------------
+https://calliduscloud.atlassian.net/wiki/spaces/CO/pages/862257691/Service+Now+Tasks+to+be+raised+before+Provisioning+SCA+SCAI
+
+DNS Request
+
+sdi&external ip: syspos
+internal&main ip : infraops
+
+Same Ip is used throughout the partner tenants(smfsls)-162.213.82.227(do nslookup for tenants before used in sls)
+Intially we have to raise infraops request for COMM Ultra DNS:(Ip choosen from ip sheet)
+nslookup xxxx.callidusondemand.com
+
+Short Description : UltraDNS update request
+
+Hi Team,
+
+Please add / update below entries in UltraDNS
+
+1264.callidusondemand.com --> 162.213.82.227
+
+For external & SDI ultradns
+
+Short Description: External IP on Ultra DNS Mapping for below environment.
+Description:  
+Hi Team,
+Kindly map External IP on Ultra DNS mapping for the below environment:
+1264.calliduscloud.com : 204.44.60.168 (sbox)
+1264.sdi-calliduscloud.com : 162.213.82.20 (sbox)
+
+Internal IP’s for Split DNS mapping:
+
+Short Description: Need split DNS mapping for below tenants
+Description:  
+Hi Team,
+Kindly map internal split DNS for the below environment:
+1264-xsa.calliduscloud.com : 10.25.12.110
+1264.calliduscloud.com       : 10.25.13.26
+
+    SCTASK0104959
+    SCTASK0104960  - external dns and SDI ultraDNS request
+    SCTASK0104961  -internal splitDNS request 
+
+-------------------------------------------------------------------------------------------
+DB-restore : SCTASK0104973
+Login to app sevrer where tenant 0453 is provisioned
+
+stop the tenant to take backup 
+
+cd /apps/Callidus/tomcat/bin
+
+./stopTenant.sh 0453
+
+Go to below directory
+
+cd  /apps/Callidus/database/hana/bin
+
+Run below command to take back up 
+
+./exportTenantData.sh -tenantId 0453 -path /backup/EXPORT/DB_SMF0453SLS/0453_TCMP_backup_20210722
+
+Then start tenant
+
+cd /apps/Callidus/tomcat/bin
+ 
+./startTenant 0453
+
+====== =========== ================
+HI DBA Team 
+
+I have created the latest backup (0453_TCMP_backup_20221031)  of 0453 tenant in smf-hana-comm-sls-1a71 under the path /backup/EXPORT/DB_SMF0453SLS/
+
+please help us to copy this backup to smf-hana-comm-sls-1c06 
+under the path /backup/EXPORT/DB_SMF0453SLS/
+
+Thanks
+ 
+
+HI DBA Team 
+
+ 
+
+I have created the latest backup (0453_TCMP_backup_20210722)  of 0453 tenant in smf-hana-comm-sls-1a71 under the path /backup/EXPORT/DB_SMF0453SLS/
+
+ 
+
+please help us to copy this backup to smf-hana-comm-sls-1b72  
+under the path /backup/EXPORT/DB_SMF0453SLS/
+
+ 
+
+CO DBA Oracle/Hana
+-----------------------------------------------------------------------------------------
+  "1264":
+    ldap_portaladmin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36353765343366333461323933653338396262316635306364633132633634653162363665633663
+          6232653464396262343165393562646336636530383239370a306137653331383339333839643564
+          36616533653436373933626565623534666462343536643162653564656463663433326239336535
+          6233643736333934360a323233356636363639663966363036666165356233663361626531333765
+          3835
+    ldap_portaladmin_encrypted_password: "{aes256-gcm96}M9CzvVtXU35CAE33zpZZyPHbK4OdWXEIHBafuLF3PtKymRrdjN0="
+    ldap_administrator_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          37626330666530303735303331633331376232363831626633326634346230613566343038626636
+          3835313630383431623936373336366562306231363062640a323232643235366239333432656463
+          61616134356139356534376532376636336631396564663062656635353266383537633066363834
+          3232386334393735630a633533336562383965666534303466633466396265626533633062303231
+          3064
+    authenticationMode : "standAlone"
+    ldapAvailable : "true"
+    ldapUserSync : "true"
+    basedn : "o=SMF1264SLS,{{ commissions_basedn }} "
+    dashboard_personalize : "true"
+    concurrent_login : "yes"
+    maxPLimit : "3"
+    Callidus_External_Providers : "sforce,fssosaml"
+    AppServer : "Tomcat"
+    superUserId : "PortalAdmin"
+    callidus_appserver_log_dir : "{{ callidus_share }}/logs"
+    mail_host : "localhost"
+    mail_from : "admin@callidusondemand.com"
+    CallidusTopicName : "CallidusTopic"
+    provider_url : "https://1264.callidusondemand.com"
+    CALD_DB_TENANT_DESC: "This\\ is\\ 1264\\ tenant\\ on\\ {{ ansible_hostname }} "
+    CALD_DB_TENANT_PASSWORD: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33643935613438393633353933323331363136356430313430633832316263303532623631656336
+          3462383131303461623634626537633031363663363266620a326230663466373338363439356461
+          36323032376434633236396535306436653161613865333436646431303138326233666633386631
+          3433363064666339630a383236323134323239316339323239343862323637356337336364666164
+          6663
+    CALD_DB_TENANT_ENCRYPTED_PASSWORD: "{aes256-gcm96}PjPnxb70HvPQgFaB5EBPN2o24WF58iQLx5lYGq7ZuHEO2kzF3dk="
+    CALD_DB_TENANT_EXT_PASSWORD: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          39613930366336393765376566656632633866326130653761383435396232383532626162633065
+          6161643265383630326666333866353736313536396231320a306362356230363235616336316532
+          66383863656464323764336364623834626134376238373832613134643536623131333137616636
+          3330323963346530390a643838623664396131613330333932386264313864333039366233623136
+          3366
+    CALD_DB_TENANT_EXT_ENCRYPTED_PASSWORD: "{aes256-gcm96}bmX0YQBxWXHJ4eR1Ae4iLTPzIHMCbIhKOBVs0aUp92YEbGaMIeo="
+    CALD_DB_TENANT_PS_ENCRYPTED_PASSWORD: "{aes256-gcm96}PYoi30dVPf09c9XRfzyqXnJ9NUraZA01JeyzFOIzNWg1LgWQUHU="
+    CALD_DB_TENANT_READ_ENCRYPTED_PASSWORD: "{aes256-gcm96}SASEgZj8uAeKbgF2T19X74gTYU5fCSmZMZBsizKesEdEQxH64pg="
+    LICENSE_KEY: ""
+    INT_CONTEXT_ROOT : "http://{{ ansible_nodename }}:5004/"
+    TCMP_SOFTWARE_VERSION: "Commission 2105"
+    TCMP_LAUNCH_URL : "TrueComp-SaaS/sso.jnlp"
+    TCMP_INT_CONTEXT_ROOT : "TrueComp-SaaS/"
+    CPOR_SOFTWARE_VERSION: "Commission 2105"
+    CPOR_LAUNCH_URL : "CallidusPortal/startPortal.do"
+    CPOR_INT_CONTEXT_ROOT : "CallidusPortal/"
+    TANL_SOFTWARE_VERSION: "Commission 2105"
+    TANL_LAUNCH_URL : "TrueAnalytics/start.do"
+    TANL_INT_CONTEXT_ROOT : "TrueAnalytics/"
+    COMM_SOFTWARE_VERSION: "Commission 2105"
+    COMM_LAUNCH_URL : "Commission/index.html"
+    COMM_INT_CONTEXT_ROOT : "http://{{ lb_host }}:5009/Commission/index.html/"
+    CNPC_SOFTWARE_VERSION: "Commission 2105"
+    CNPC_LAUNCH_URL : "PlanCommunicator/main.jsf"
+    CNPC_INT_CONTEXT_ROOT : "PlanCommunicator/"
+    CDLI_SOFTWARE_VERSION: "Commission 2105"
+    CDLI_LAUNCH_URL: "https://cdl-sls.calliduscloud.com/cdl/login"
+    CDLI_INT_CONTEXT_ROOT: "https://cdl-sls.calliduscloud.com/cdl/login"
+    tomcat_listen_port: 5004
+    tomcat_shutdown_port: 6004
+    tomcat_ajp_port: 7004
+    tomcat_debug_port: 9004
+    tomcat_jvm_args: "-Xms2048m\\ -Xmx2048m\\ -XX:MaxPermSize=512m\\ -Dorg.apache.el.parser.SKIP_IDENTIFIER_CHECK=true"
+    tomcat_maxactive_transactions : "200"
+    tomcat_connection_timeout : "20000"
+    tomcat_keepalive_timeout : "5000"
+    disable_truecomp: "true"
+    salesportal_enabled: "true"
+    docusign_enabled: "true"
+    saml_auth_request_signed: "false"
+    saml_fsso_logout_redirect_url: ""
+    geocodeprocessor_enabled: "false"
+    isHelpRequired: "true"
+    tenant_key: "SMF1264SLS"
+    tenant_env_id: "SLS"
+    ws_make_only_logical_key_required: ""
+    ws_show_null_elements_in_response: ""
+    tomcat_connection_pool_borrow_connection_timeout: "62"
+    tba_etl_host: ""
+    callidus_external_groups_combined: "false"
+    um_url: ""
+    um_app_secret_CPOR: ""
+    um_app_sp_id_CPOR: ""
+    um_app_secret_COMM: ""
+    um_app_sp_id_COMM: ""
+    federation_portal_url: ""
+    fssosaml_logout_binding: ""
+    tenant_useradmin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          61373039356230613363353561613064613330623864613934643861366631336362326466353763
+          6537353836633434376162613134653961636665653039630a323330346463313435383063653536
+          61313462343133613663353836613833363039663763386635313264393838626630666133373934
+          6637663266303361620a336639363038643234343462316562333762363865356361366631373734
+          3566
+    hana_hostname: smf-hana-comm-sls-1b72.smf.uc.int
+    hana_tenant_db_port: 30252
+    hana_db_tcmp_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          31363238663636633863343430626335646162373862313766393639393635656434366464336337
+          3937663062643831343936323364313963623064393765350a393932303335313336383236353938
+          32353461313164633531623165303264303631356231653634353261643265373638396331656438
+          3362323330326239380a323562396266666536386137363533396262323630343232383536356335
+          3762
+    hana_db_encrypted_password: "{aes256-gcm96}FJ0GncCllXdablYSTTy1XAh95Xdc131g6i363hnrYJ92MOeHioI="
+    SLCA_SOFTWARE_VERSION: "Fall 2020"
+    SLCA_LAUNCH_URL: "" # dont end the url with slash /
+    SLCA_INT_CONTEXT_ROOT: "" # dont end the url with slash /
+    restapi_oauth_service_client_secret: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34643165636331313639656433343934653936613236366134356664393439623534666264356265
+          3832303139363165336539323364366633656635353063350a313538303730666437336135333433
+          62613062633333336531636232356565343632653661623935316365303365383766373938336661
+          6136633334333337620a306162663930653865333537623134303630643766323635333137643331
+          3634
+    wkfl_ps_tenant_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36623866303165333137336631613833336438636661363238386661303833623532353961633530
+          3333656539633638306135373137306365303737653361380a333135643832663934313739356634
+          61313363626431356263383566393131333930333366646534653139343164333531313238363135
+          3962386134316235350a393764623135366438353764303037326662643062626339646466613063
+          3830
+	TCMP_LICENSE_KEY: ""
+	comm_sap_customer_id: "0050120032"
+    tenant_sap_id: "000000000741962987"
+    portaladmin_email: "bart.strozek@sandspartners.com"
+    user_firstname: "Bartosz"
+    user_lastname: "Strozek"
+    user_encrypted_password: "{aes256-gcm96}M9CzvVtXU35CAE33zpZZyPHbK4OdWXEIHBafuLF3PtKymRrdjN0="
+
+GUlCKm1YBFcP74E9O9Go ---workflow
+
+"GUlCKm1YBFcP74E9O9Go"
+----------------------------------------------------------------------------------------------------
+Remove playbooks
+--------------
+
+ 
+
+ansible-playbook -i /apps/ansible/environments/commissions/smf_commissions_pod_hana_sls/inventory /apps/ansible/ansible-ansible-commissions/removeTenant_hana.yml --extra-vars "tenantid=0929 hana_app_server=smf-app-comm-sls-1018"
+
+ansible-playbook -i /apps/ansible/environments/commissions/smf_commissions_pod_hana_sls/inventory /apps/ansible/ansible-ansible-commissions/removeTenant_hana.yml --extra-vars "tenantid=1264 hana_app_server=smf-app-comm-sls-1018"
+
+
+
+Port removing
+================
+ansible-playbook -i /apps/ansible/environments/commissions/smf_commissions_pod_hana_sls/inventory /apps/ansible/ansible-ansible-commissions/deleteTenant_db_hana.yml --extra-vars "hana_db_server=smf-hana-comm-sls-1b72 tenant_key=SMF1264SLS"
+
+Add Tenant Playbook:
+
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_hana_sls/inventory /apps/ansible/ansible-ansible-commissions/addTenant_app_hana.yml --extra-vars "tenantid=1264 hana_app_server=smf-app-comm-sls-1018" --skip-tags='tomcat_restart,addnameduser'
+
+Add Tenant Database:
+
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_hana_sls/inventory  /apps/ansible/ansible-ansible-commissions/addTenant_db_hana.yml --extra-vars "hana_db_server=fra-hana-comm-prd-1b86 tenant_useradmin_password=TOFK90lhqn tenant_key=FRA1621PRD"
+F5
+http://smf-jenkins-001:8080/job/f5-pipeline/617/console
+F5 Completed:
+
+
+Workflow:
+
+ customer name: Sands Partners Sp. z o.o.
+ moniker : 1264
+ workflow admin name : "1264Admin"
+ url: https://us-wf-sls.callidusondemand.com/wpm/
+ wkfl_service_user : "1264Admin"
+ 
+SDI-enable:
+
+
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_hana_sls/inventory /apps/ansible/ansible-ansible-commissions/enableSDI_hana.yml --extra-vars "tenant_key=SMF1264SLS hana_db_server=smf-hana-comm-sls-1b72 dpConnPass= dpAgentPass="
+
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_hana_sls/inventory /apps/ansible/ansible-ansible-commissions/enableSDI_hana.yml --extra-vars "tenant_key=SMF1264SLS hana_db_server=smf-hana-comm-sls-1b72 dpConnPass="PRFG87wbhd" dpAgentPass="ZXRT34iopl"
+
+ansible-playbook -i /apps/environments/commissions/smf_commissions_pod_hana_sls/inventory /apps/ansible/ansible-ansible-commissions/enableSDI_hana.yml --extra-vars "tenant_key=SMF1264SLS hana_db_server=smf-hana-comm-sls-1b72 dpConnPass=PRFG87wbhd dpAgentPass=ZXRT34iopl"
+http://smf-jenkins-001:8080/job/sravani_playbooks/72/consoleFull
+
+
+http://smf-jenkins-001:8080/job/sravani_playbooks/67/consoleFull
